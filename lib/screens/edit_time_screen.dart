@@ -5,12 +5,14 @@ class EditTimeScreen extends StatefulWidget {
   final String oldDay;
   final String oldTime;
   final String oldSound;
+  final String oldName;
 
   const EditTimeScreen({
     super.key,
     required this.oldDay,
     required this.oldTime,
     required this.oldSound,
+    required this.oldName,
   });
 
   @override
@@ -21,15 +23,17 @@ class _EditTimeScreenState extends State<EditTimeScreen> {
   late String selectedDay;
   late TimeOfDay selectedTime;
   late String selectedSound;
+  late TextEditingController nameController;
   List<String> sounds = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    selectedDay = widget.oldDay.toLowerCase(); // ✅ küçük harfe çevir
+    selectedDay = widget.oldDay.toLowerCase();
     selectedTime = _parseTime(widget.oldTime);
     selectedSound = widget.oldSound;
+    nameController = TextEditingController(text: widget.oldName);
     fetchSounds();
   }
 
@@ -67,12 +71,15 @@ class _EditTimeScreenState extends State<EditTimeScreen> {
         newDay: selectedDay,
         newTime: formattedTime,
         newSound: selectedSound,
+        newName: nameController.text.trim(),
       );
+      if (!mounted) return;
       Navigator.pop(context);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("✅ Güncellendi")));
     } catch (_) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("❌ Güncellenemedi")));
@@ -83,7 +90,6 @@ class _EditTimeScreenState extends State<EditTimeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Zili Düzenle")),
-
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
@@ -138,6 +144,11 @@ class _EditTimeScreenState extends State<EditTimeScreen> {
                       if (val != null) setState(() => selectedSound = val);
                     },
                     decoration: const InputDecoration(labelText: "Ses Seç"),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: nameController,
+                    decoration: const InputDecoration(labelText: "Alarm İsmi"),
                   ),
                   const SizedBox(height: 32),
                   ElevatedButton.icon(

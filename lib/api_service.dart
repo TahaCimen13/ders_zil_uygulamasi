@@ -1,4 +1,3 @@
-// lib/api_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -15,11 +14,21 @@ class ApiService {
     }
   }
 
-  static Future<void> addTime(String day, String time, String sound) async {
+  static Future<void> addTime(
+    String day,
+    String time,
+    String sound,
+    String name,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/times'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'day': day, 'time': time, 'sound': sound}),
+      body: jsonEncode({
+        'day': day,
+        'time': time,
+        'sound': sound,
+        'name': name,
+      }),
     );
     if (response.statusCode != 200) {
       throw Exception('Saat eklenemedi');
@@ -74,6 +83,7 @@ class ApiService {
     required String newDay,
     required String newTime,
     required String newSound,
+    required String newName,
   }) async {
     final response = await http.post(
       Uri.parse('$baseUrl/update-time'),
@@ -84,11 +94,21 @@ class ApiService {
         'new_day': newDay,
         'new_time': newTime,
         'new_sound': newSound,
+        'new_name': newName,
       }),
     );
-
     if (response.statusCode != 200) {
       throw Exception('Güncelleme başarısız');
+    }
+  }
+
+  /// Yeni: Aktif alarm bilgisini getirir
+  static Future<Map<String, dynamic>> getActiveAlarm() async {
+    final response = await http.get(Uri.parse('$baseUrl/active-alarm'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Aktif alarm alınamadı');
     }
   }
 }

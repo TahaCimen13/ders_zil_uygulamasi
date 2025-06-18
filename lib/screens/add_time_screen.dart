@@ -1,4 +1,3 @@
-// lib/screens/add_time_screen.dart
 import 'package:flutter/material.dart';
 import '../api_service.dart';
 
@@ -13,6 +12,7 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
   String selectedDay = 'monday';
   TimeOfDay selectedTime = TimeOfDay.now();
   String? selectedSound;
+  String name = "";
   List<String> sounds = [];
   bool isLoading = false;
 
@@ -59,6 +59,13 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
       return;
     }
 
+    if (name.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('❗ Lütfen alarm ismi girin')),
+      );
+      return;
+    }
+
     setState(() => isLoading = true);
     String time =
         selectedTime.hour.toString().padLeft(2, '0') +
@@ -66,7 +73,8 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
         selectedTime.minute.toString().padLeft(2, '0');
 
     try {
-      await ApiService.addTime(selectedDay, time, selectedSound!);
+      await ApiService.addTime(selectedDay, time, selectedSound!, name.trim());
+
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
@@ -120,6 +128,14 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
                         DropdownMenuItem(value: sound, child: Text(sound)),
                   )
                   .toList(),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Alarm İsmi',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (val) => name = val,
             ),
             const Spacer(),
             isLoading
