@@ -1,0 +1,31 @@
+{
+  "monday": [
+    {
+      "time": "01:40",
+      "sound": "bell.mp3",
+      "name": ""
+    }
+  ],
+  "tuesday": [],
+  "wednesday": [
+    {
+      "time": "23:43",
+      "sound": "bell.mp3"
+    }
+  ],
+  "thursday": [
+    {
+      "time": "02:14",
+      "sound": "zapsplat_multimedia_ringtone_smartphone_mallets_musical_005_107250.mp3",
+      "name": "Zil"
+    },
+    {
+      "time": "02:36",
+      "sound": "bell.mp3",
+      "name": "s"
+    }
+  ],
+  "friday": [],
+  "saturday": [],
+  "sunday": []
+}
