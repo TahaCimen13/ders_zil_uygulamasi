@@ -1,0 +1,43 @@
+{
+  "monday": [
+    {
+      "time": "22:24",
+      "sound": "Soner_Sarkabaday_-_Mevzu_Derin_Official_Video.mp3",
+      "name": "aa"
+    }
+  ],
+  "tuesday": [],
+  "wednesday": [
+    {
+      "time": "21:47",
+      "sound": "Soner_Sarkabaday_-_Mevzu_Derin_Official_Video.mp3",
+      "name": "Zil"
+    },
+    {
+      "time": "22:01",
+      "sound": "Soner_Sarkabaday_-_Mevzu_Derin_Official_Video.mp3",
+      "name": "aaa"
+    }
+  ],
+  "thursday": [
+    {
+      "time": "02:14",
+      "sound": "zapsplat_multimedia_ringtone_smartphone_mallets_musical_005_107250.mp3",
+      "name": "Zil"
+    },
+    {
+      "time": "02:36",
+      "sound": "bell.mp3",
+      "name": "s"
+    }
+  ],
+  "friday": [],
+  "saturday": [],
+  "sunday": [
+    {
+      "time": "18:46",
+      "sound": "Soner_Sarkabaday_-_Mevzu_Derin_Official_Video.mp3",
+      "name": "ders1"
+    }
+  ]
+}
