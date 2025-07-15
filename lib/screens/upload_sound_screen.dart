@@ -16,7 +16,7 @@ class _UploadSoundScreenState extends State<UploadSoundScreen> {
   Future<void> _pickAndUploadFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['mp3'],
+      allowedExtensions: ['mp3', 'wav'],
     );
     if (result == null) return;
 

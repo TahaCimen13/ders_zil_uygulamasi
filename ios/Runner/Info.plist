@@ -45,5 +45,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+<string>Bluetooth cihazlarına bağlanmak için izin gerekiyor.</string>
+<key>NSBluetoothPeripheralUsageDescription</key>
+<string>Bluetooth cihazlarına bağlanmak için izin gerekiyor.</string>
 </dict>
 </plist>

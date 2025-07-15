@@ -3,6 +3,9 @@ import '../api_service.dart';
 import 'upload_sound_screen.dart';
 import 'add_time_screen.dart';
 import 'edit_time_screen.dart';
+import 'bluetooth_screen.dart';
+
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -107,6 +110,19 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.bluetooth),
+            iconSize: 28, // isteğe bağlı küçültüp büyütebilirsin
+            tooltip: "Bluetooth Ayarları",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BluetoothScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: Column(
@@ -180,8 +196,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: dismissActiveAlarm,
-                    child: const Text("Kapat"),
+                    onPressed: () async {
+                      try {
+                        final response = await http.post(
+                          Uri.parse('${ApiService.baseUrl}/api/dismiss-alarm'),
+                        );
+                        if (response.statusCode == 200) {
+                          print("✅ Alarm kapatıldı");
+                        } else {
+                          print("❌ Alarm kapatılamadı");
+                        }
+                      } catch (e) {
+                        print("⚠️ Hata: $e");
+                      }
+                    },
+                    child: Text("Kapat"),
                   ),
                 ],
               ),
